@@ -199,7 +199,7 @@ if __name__=="__main__":
                 inputv = Variable(input)
 
                 errD_real = netD(inputv)
-                errD_real.backward(one)
+                errD_real.backward(one)  # 梯度上升
 
                 # train with fake
                 noise.resize_(opt.batchSize, nz, 1, 1).normal_(0, 1)
@@ -207,7 +207,7 @@ if __name__=="__main__":
                 fake = Variable(netG(noisev).data)
                 inputv = fake
                 errD_fake = netD(inputv)
-                errD_fake.backward(mone)
+                errD_fake.backward(mone)  # 梯度下降
                 errD = errD_real - errD_fake
                 optimizerD.step()
 
@@ -223,7 +223,7 @@ if __name__=="__main__":
             noisev = Variable(noise)
             fake = netG(noisev)
             errG = netD(fake)
-            errG.backward(one)
+            errG.backward(one)  # 梯度上升
             optimizerG.step()
             gen_iterations += 1
 

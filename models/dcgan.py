@@ -197,3 +197,11 @@ class DCGAN_G_nobn(nn.Module):
         else: 
             output = self.main(input)
         return output 
+
+if __name__ == "__main__":
+
+    inputs = torch.rand(16, 3, 64, 64)
+    net = DCGAN_D(64, 100, 3, 64, 1, 0)
+    net.eval()
+    outputs = net.forward(inputs)
+    print(outputs.size())  # torch.Size([1])
